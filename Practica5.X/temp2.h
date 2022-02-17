@@ -11,5 +11,5 @@
 
 void InicializarTimer2(void);
 uint32_t Ticks2DesdeArr(void);
-uint32_t setCount(void);
 #endif	/* TEMP_H */
+

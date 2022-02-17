@@ -1,6 +1,6 @@
 #include <xc.h>
 #include <stdint.h>
-#include "temp.h"
+#include "temp2.h"
 
 void InicializarTimer2(void)
 {
@@ -22,7 +22,6 @@ void InicializarTimer2(void)
 }
 
 static uint32_t ticks2 = 0; // Per. reloj desde arranque
-static uint32_t count = 0;
 
 __attribute__((vector(_TIMER_2_VECTOR),interrupt(IPL2SOFT),nomips16))
 void InterrupcionTimer2(void)
@@ -32,7 +31,6 @@ void InterrupcionTimer2(void)
     // interrupción.
     IFS0bits.T2IF = 0;
     ticks2 ++;
-    count = 0;
 }
 
 
@@ -47,12 +45,4 @@ uint32_t Ticks2DesdeArr(void)
     return c_ticks2;
 }
 
-uint32_t setCount(void) {
-    uint32_t c_count;
-    
-    asm(" di"); // Evitamos Ley de Murphy
-    c_count = count;
-    asm(" ei");
-    
-    return c_count;
-}
+

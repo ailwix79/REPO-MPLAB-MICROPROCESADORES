@@ -1,3 +1,3 @@
-build/default/production/main1.o: main1.c temp.h
+build/default/production/main1.o: main1.c temp2.h
 
-temp.h:
+temp2.h:

@@ -13,11 +13,16 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>main1.c</itemPath>
-      <itemPath>temp.c</itemPath>
-      <itemPath>temp.h</itemPath>
       <itemPath>Pic32Ini.c</itemPath>
       <itemPath>Pic32Ini.h</itemPath>
       <itemPath>main2.c</itemPath>
+      <itemPath>temp2.c</itemPath>
+      <itemPath>temp2.h</itemPath>
+      <itemPath>temp3.c</itemPath>
+      <itemPath>temp3.h</itemPath>
+      <itemPath>main3.c</itemPath>
+      <itemPath>temp.c</itemPath>
+      <itemPath>temp.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

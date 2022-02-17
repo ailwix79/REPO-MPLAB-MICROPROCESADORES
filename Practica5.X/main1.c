@@ -5,9 +5,9 @@
 #define PIN_LED3 3
 #define T_PARPADEO 0 // en ms
 
-#include "temp.h"
+#include "temp2.h"
 
-int main1 (void)
+int main1(void)
 {
     uint32_t ticks_ant, ticks_act;
     int pulsador;
@@ -26,7 +26,7 @@ int main1 (void)
     // las interrupciones
     INTCONbits.MVEC = 1; // Modo multivector
     asm(" ei");
-    ticks_ant = TicksDesdeArr();
+    ticks_ant = Ticks2DesdeArr();
     
     while (1) {
         // Se lee el estado del pulsador
@@ -47,7 +47,7 @@ int main1 (void)
         //      LATC ^= 1;      Se invierte el bit (XOR)
         // }
         
-        ticks_act = TicksDesdeArr();
+        ticks_act = Ticks2DesdeArr();
         if((ticks_act-ticks_ant) > T_PARPADEO){
             ticks_ant = ticks_act;
             LATCINV = 1 << PIN_LED3;

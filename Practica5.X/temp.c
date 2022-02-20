@@ -2,57 +2,57 @@
 #include <stdint.h>
 #include "temp.h"
 
-void InicializarTimer2(void)
+void InicializarTimer(void)
 {
     // Configuración del Timer
-    TMR2 = 0;
-    T2CON = 0;
-    IFS0bits.T2IF = 0;
-    PR2 = 19530;
+    TMR5 = 0;
+    T5CON = 0;
+    IFS0bits.T5IF = 0;
+    PR5 = 39060;            // 2 segundos
     // Se configura la prioridad de la interrupción
-    IPC2bits.T2IP = 2;
+    IPC5bits.T5IP = 2;
     //Se configura la subprioridad de la interrupción
-    IPC2bits.T2IS = 0;
+    IPC5bits.T5IS = 0;
     // Se borra el flag de interrupción por si estaba pendiente
-    IFS0bits.T2IF = 0;
+    IFS0bits.T5IF = 0;
     // y por último se habilita su interrupción
-    IEC0bits.T2IE = 1;
+    IEC0bits.T5IE = 1;
     
-    T2CON = 0x8070; //Arranca el Timer con prescalado 256
+    T5CON = 0x8070; //Arranca el Timer con prescalado 256
 }
 
-static uint32_t ticks2 = 0; // Per. reloj desde arranque
-static uint32_t count = 0;
+static uint32_t ticks = 0; // Per. reloj desde arranque
 
-__attribute__((vector(_TIMER_2_VECTOR),interrupt(IPL2SOFT),nomips16))
-void InterrupcionTimer2(void)
+__attribute__((vector(_TIMER_5_VECTOR),interrupt(IPL2SOFT),nomips16))
+void InterrupcionTimer(void)
 {
     // Se borra el flag de interrupción para no volver a
     // entrar en esta rutina hasta que se produzca una nueva
     // interrupción.
-    IFS0bits.T2IF = 0;
-    ticks2 ++;
-    count = 0;
+    
+    IFS0bits.T5IF = 0;
+    ticks ++;
+    setCount();
 }
 
-
-uint32_t Ticks2DesdeArr(void)
+uint32_t TicksDesdeArr(void)
 {
-    uint32_t c_ticks2;
+    uint32_t c_ticks;
     
     asm(" di"); // Evitamos Ley de Murphy
-    c_ticks2 = ticks2;
+    c_ticks = ticks;
     asm(" ei");
     
-    return c_ticks2;
+    return c_ticks;
 }
 
-uint32_t setCount(void) {
-    uint32_t c_count;
-    
-    asm(" di"); // Evitamos Ley de Murphy
-    c_count = count;
-    asm(" ei");
-    
-    return c_count;
+uint32_t setCount(void) 
+{
+    return 0;
 }
+
+void resetTicks(void) 
+{
+    ticks = 0;
+}
+

@@ -29,10 +29,10 @@ void InterrupcionTimer2(void)
     // Se borra el flag de interrupción para no volver a
     // entrar en esta rutina hasta que se produzca una nueva
     // interrupción.
+    
     IFS0bits.T2IF = 0;
     ticks2 ++;
 }
-
 
 uint32_t Ticks2DesdeArr(void)
 {

@@ -9,7 +9,8 @@
 #define	TEMP_H
 #include <stdint.h> // Define uint32_t
 
-void InicializarTimer2(void);
-uint32_t Ticks2DesdeArr(void);
+void InicializarTimer(void);
+uint32_t TicksDesdeArr(void);
+void resetTicks(void);
 uint32_t setCount(void);
 #endif	/* TEMP_H */

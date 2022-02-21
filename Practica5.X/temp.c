@@ -32,7 +32,6 @@ void InterrupcionTimer(void)
     
     IFS0bits.T5IF = 0;
     ticks ++;
-    setCount();
 }
 
 uint32_t TicksDesdeArr(void)
@@ -46,13 +45,10 @@ uint32_t TicksDesdeArr(void)
     return c_ticks;
 }
 
-uint32_t setCount(void) 
-{
-    return 0;
-}
-
 void resetTicks(void) 
 {
+    asm(" di");
     ticks = 0;
+    asm(" ei");
 }
 

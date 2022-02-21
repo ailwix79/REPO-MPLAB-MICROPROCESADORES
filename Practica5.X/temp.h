@@ -12,5 +12,4 @@
 void InicializarTimer(void);
 uint32_t TicksDesdeArr(void);
 void resetTicks(void);
-uint32_t setCount(void);
 #endif	/* TEMP_H */

@@ -8,7 +8,7 @@ void InicializarTimer2(void)
     TMR2 = 0;
     T2CON = 0;
     IFS0bits.T2IF = 0;
-    PR2 = 19530;
+    PR2 = 19530;    // 1 segundo
     // Se configura la prioridad de la interrupción
     IPC2bits.T2IP = 2;
     //Se configura la subprioridad de la interrupción

@@ -3,25 +3,24 @@
 #include "temp.h"
 
 #define PIN_PULSADOR 5
-#define PIN_LED1 1
+#define PIN_LED_WIN 1
 #define NUM_PULSACIONES 5
 
 int main(void) {
     
-    uint32_t count, ticks;
-    int puls_act, puls_ant, i;
+    uint32_t count, n_int = 0, win = 0;
+    int puls_act, puls_ant;
     
     ANSELB &= ~(1<<PIN_PULSADOR);
-    ANSELC &= ~(1<<PIN_LED1);
+    ANSELC &= ~(1<<PIN_LED_WIN);
     
-    TRISC = ~(1<<PIN_LED1);       // Poner como salida RC0, RC3, RC2
+    TRISC = ~(1<<PIN_LED_WIN);       // Poner como salida RC0, RC3, RC2
     TRISB = (1<<PIN_PULSADOR);    // Todos como salidas menos el pulsador
+    
     LATB = 0;
     LATC = ~0;                    // Al principio ningún LED encendido
               
     InicializarTimer();
-    count = 0;
-    i = 0;
     
     INTCONbits.MVEC = 1;
     asm("   ei");
@@ -31,41 +30,36 @@ int main(void) {
     while (1) {
         
         puls_act = (PORTB >> PIN_PULSADOR) & 1;
-                
-        ticks = TicksDesdeArr();
         
         if ((puls_act != puls_ant) && (puls_act == 0)) {
-            count++;
-            
-            if (count >= NUM_PULSACIONES) {
-                asm("   di");
-                
-                LATCCLR = (1 << PIN_LED1);
-                
-                T3CON = 0;
-                TMR3 = 0;
-                IFS0bits.T3IF = 0;
-                PR3 = 39060;
-                T3CON = 0x8070;
-                        
-                while(i != 2) {
-                    while(IFS0bits.T3IF == 0);
-                    i++;
+            if ((LATC >> PIN_LED_WIN) & 1){
+                count++;
+                if (count >= NUM_PULSACIONES) {
+                    LATCCLR = (1<<PIN_LED_WIN);
+
+                    asm("   di");
+                    resetTicks();
+                    asm("   ei");
+
+                    count = 0;
+                    win = 1;
                 }
-                
-                LATCSET = (1 << PIN_LED1);
-                
-                resetTicks();
-                count = 0;
-                
-                asm("   ei");
             }
-            
         }
-        
-        if(ticks == 1){             // Cuando pasen 2 segundos
-            count = setCount();
+
+        if ((TicksDesdeArr() == 1) && (win == 0)) {             // Cuando pasen 2 segundos
+            count = 0;
+            asm("   di");
             resetTicks();
+            asm("   ei");
+            
+        } else if ((TicksDesdeArr() == 2) && (win == 1)) {
+            LATCSET = (1<<PIN_LED_WIN);
+            win = 0;
+            count = 0;
+            asm("   di");
+            resetTicks();
+            asm("   ei");
         }
         
         puls_ant = puls_act;

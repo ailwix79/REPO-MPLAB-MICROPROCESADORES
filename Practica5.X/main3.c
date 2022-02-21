@@ -8,7 +8,7 @@
 
 int main(void) {
     
-    uint32_t count, win = 0;
+    uint32_t count, win;
     int puls_act, puls_ant;
     
     ANSELB &= ~(1<<PIN_PULSADOR);

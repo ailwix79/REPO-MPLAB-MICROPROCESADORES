@@ -10,21 +10,17 @@
 #include "RX.h"
 #include "TX.h"
 #include "RXTX.h"
+#include "ECHO.h"
+#include "Pic32Ini.h"
 
 /*
  *  SELECTOR DE EJERCICIO
  */
 int main(int argc, char** argv) {
-    
-    int sel = 1;
-    
-    if (sel == 1) {
-        RECEPCION();
-    } else if (sel == 2) {
-        TRANSMISION();
-    } else {
-        TRANSMISION_Y_RECEPCION();
-    }
+    //RECEPCION();
+    //TRANSMISION();
+    //TRANSMISION_Y_RECEPCION();
+    ECHO();
     return (EXIT_SUCCESS);
 }
 

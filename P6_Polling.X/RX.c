@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "Pic32Ini.h"
 #include "xc.h"
 
 /*
@@ -42,10 +43,10 @@ void InicializarTarjeta_RX(void) {
 
 void RECEPCION(void) {
     
-    InicializarUART_RX();
-    
+    InicializarTarjeta_RX();
+
     while(1) {
         while(U1STAbits.URXDA == 0);
-        LATCCLR = U1RXREG & MASCARA_LEDS;
+        LATC = ~(U1RXREG & MASCARA_LEDS);
     }
 }

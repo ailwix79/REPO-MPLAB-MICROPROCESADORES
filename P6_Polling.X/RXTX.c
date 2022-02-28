@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "Pic32Ini.h"
 #include "xc.h"
 
 /*
@@ -29,7 +30,6 @@ void InicializarUART_DUAL(void) {
     U1RXR = 3;
     SYSKEY = 0x11112222;
     
-    U1STAbits.UTXEN = 1;
     U1STAbits.URXEN = 1;
     U1MODEbits.ON = 1;
 }
@@ -48,30 +48,39 @@ void InicializarTarjeta_DUAL(void) {
 }
 
 void TRANSMISION_Y_RECEPCION(void) {
-    
+
     int puls_act, puls_ant;
     char caracter[] = MENSAJE;
     char *pc;
     
     pc = caracter;
+    InicializarTarjeta_DUAL();
     
-    InicializarUART_DUAL();
-    
-    puls_ant = (PORTB & PIN_PULSADOR);
+    puls_ant = (PORTB >> 5) & 1;
     
     while(1) {
+        puls_act = (PORTB >> 5) & 1;
         
-        puls_act = (PORTB & PIN_PULSADOR);
-
-        if (puls_ant != puls_act && puls_act == 0) {
-            if (U1STAbits.TRMT == 1) {
+        // ESTRUCTURA ESTILO FIRE AND FORGET
+        
+        if ((puls_ant != puls_act) && (puls_act == 0)) {
+            
+            U1STAbits.UTXEN = 1;
+            
+            while(*pc != '\0') {
                 U1TXREG = *pc;
+                while (U1STAbits.TRMT == 0);
                 pc++;
             }
+            
+            pc = caracter;
+            U1STAbits.UTXEN = 0;
         }
-  
+        
+        puls_ant = puls_act;
+        
         if (U1STAbits.URXDA == 1) {
-            LATCCLR = U1RXREG & MASCARA_LEDS;
+            LATC = ~(U1RXREG & MASCARA_LEDS);
         }
     }
 }

@@ -16,7 +16,7 @@
 
 #define MASCARA_LEDS 15
 
-int main(int argc, char** argv) {
+int main1(int argc, char** argv) {
     
     char rx = '\0';
     
@@ -24,7 +24,7 @@ int main(int argc, char** argv) {
     TRISCCLR = MASCARA_LEDS;
     LATCSET = MASCARA_LEDS;
     
-    InicializarUART();
+    InicializarUART_RX();
     asm("   ei");
         
     while(1) {

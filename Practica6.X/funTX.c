@@ -7,18 +7,15 @@
 #define VELOCIDAD 32        // 9600 baudios
 #define PIN_TX (1<<7)
 #define PRIORIDAD 3
-#define SUBPRIORIDAD 0
+#define SUBPRIORIDAD 1
 
 #define TAM_MAX 80
-static char tx[TAM_MAX];
-static int i_tx = 0;
 
 void InicializarUART_TX(void) {
     
     U1BRG = VELOCIDAD;
     
     IFS1bits.U1TXIF = 0;
-    IEC1bits.U1TXIE = 1;
     
     IPC8bits.U1IP = PRIORIDAD;
     IPC8bits.U1IS = SUBPRIORIDAD;
@@ -40,18 +37,24 @@ void InicializarUART_TX(void) {
 
 }
 
+static char tx[TAM_MAX];
+
+static int i_tx = 0;
+
 __attribute__((vector(32),interrupt(IPL3SOFT),nomips16))
-void InterrupcionUART1_TX(void) {
+void InterrupcionUART1(void) {
     if (IFS1bits.U1TXIF == 1) {
-        IEC1bits.U1TXIE = 0;
-        i_tx = 0;
-        tx[i_tx] = '\0';
+        if(tx[i_tx] == '\0') {
+            IEC1bits.U1TXIE = 0;
+            i_tx = 0;
+            tx[i_tx] = '\0';
         
-    } else {
-        U1TXREG = tx[i_tx];
-        i_tx++;
+        } else {
+            U1TXREG = tx[i_tx];
+            i_tx++;
+        }
+        IFS1bits.U1TXIF = 0;
     }
-    IFS1bits.U1TXIF = 0;
 }
 
 void setTX(char *ps) {

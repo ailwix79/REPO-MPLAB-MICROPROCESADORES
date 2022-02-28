@@ -14,6 +14,4 @@
     Describe the purpose of this file.
  */
 /* ************************************************************************** */
-
-void InicializarUART_RX(void);
-char getRX(void);
+void RECEPCION(void);

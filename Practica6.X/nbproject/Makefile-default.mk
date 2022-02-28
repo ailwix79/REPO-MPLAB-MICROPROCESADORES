@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=main1.c main2.c funRX.c funTX.c
+SOURCEFILES_QUOTED_IF_SPACED=main1.c main2.c funRX.c funTX.c main3.c funTXRX.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main1.o ${OBJECTDIR}/main2.o ${OBJECTDIR}/funRX.o ${OBJECTDIR}/funTX.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/main1.o.d ${OBJECTDIR}/main2.o.d ${OBJECTDIR}/funRX.o.d ${OBJECTDIR}/funTX.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main1.o ${OBJECTDIR}/main2.o ${OBJECTDIR}/funRX.o ${OBJECTDIR}/funTX.o ${OBJECTDIR}/main3.o ${OBJECTDIR}/funTXRX.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/main1.o.d ${OBJECTDIR}/main2.o.d ${OBJECTDIR}/funRX.o.d ${OBJECTDIR}/funTX.o.d ${OBJECTDIR}/main3.o.d ${OBJECTDIR}/funTXRX.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/main1.o ${OBJECTDIR}/main2.o ${OBJECTDIR}/funRX.o ${OBJECTDIR}/funTX.o
+OBJECTFILES=${OBJECTDIR}/main1.o ${OBJECTDIR}/main2.o ${OBJECTDIR}/funRX.o ${OBJECTDIR}/funTX.o ${OBJECTDIR}/main3.o ${OBJECTDIR}/funTXRX.o
 
 # Source Files
-SOURCEFILES=main1.c main2.c funRX.c funTX.c
+SOURCEFILES=main1.c main2.c funRX.c funTX.c main3.c funTXRX.c
 
 
 
@@ -131,6 +131,18 @@ ${OBJECTDIR}/funTX.o: funTX.c  .generated_files/flags/default/8b06007e0d83bb7f94
 	@${RM} ${OBJECTDIR}/funTX.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -MP -MMD -MF "${OBJECTDIR}/funTX.o.d" -o ${OBJECTDIR}/funTX.o funTX.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
+${OBJECTDIR}/main3.o: main3.c  .generated_files/flags/default/647b3e55e4683f2925d0329b0d24c9eddec73cf0 .generated_files/flags/default/af031a62ccc0c18b099f063c5edfd8e7f9b606f2
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/main3.o.d 
+	@${RM} ${OBJECTDIR}/main3.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -MP -MMD -MF "${OBJECTDIR}/main3.o.d" -o ${OBJECTDIR}/main3.o main3.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/funTXRX.o: funTXRX.c  .generated_files/flags/default/d7a00aae984e123f0d3234c9ab1dbda1862cecd2 .generated_files/flags/default/af031a62ccc0c18b099f063c5edfd8e7f9b606f2
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/funTXRX.o.d 
+	@${RM} ${OBJECTDIR}/funTXRX.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG   -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -MP -MMD -MF "${OBJECTDIR}/funTXRX.o.d" -o ${OBJECTDIR}/funTXRX.o funTXRX.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
 else
 ${OBJECTDIR}/main1.o: main1.c  .generated_files/flags/default/2b48f2ad4031343fb3cadf55942ea2cf77b68add .generated_files/flags/default/af031a62ccc0c18b099f063c5edfd8e7f9b606f2
 	@${MKDIR} "${OBJECTDIR}" 
@@ -155,6 +167,18 @@ ${OBJECTDIR}/funTX.o: funTX.c  .generated_files/flags/default/1bf7c9ed4bd8f81d92
 	@${RM} ${OBJECTDIR}/funTX.o.d 
 	@${RM} ${OBJECTDIR}/funTX.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -MP -MMD -MF "${OBJECTDIR}/funTX.o.d" -o ${OBJECTDIR}/funTX.o funTX.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/main3.o: main3.c  .generated_files/flags/default/3dda72fe87222a9dedfa51dbc093c0957a2000f7 .generated_files/flags/default/af031a62ccc0c18b099f063c5edfd8e7f9b606f2
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/main3.o.d 
+	@${RM} ${OBJECTDIR}/main3.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -MP -MMD -MF "${OBJECTDIR}/main3.o.d" -o ${OBJECTDIR}/main3.o main3.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/funTXRX.o: funTXRX.c  .generated_files/flags/default/9ea9918d8a22eb724958c6556826968943c65a81 .generated_files/flags/default/af031a62ccc0c18b099f063c5edfd8e7f9b606f2
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/funTXRX.o.d 
+	@${RM} ${OBJECTDIR}/funTXRX.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -fno-common -MP -MMD -MF "${OBJECTDIR}/funTXRX.o.d" -o ${OBJECTDIR}/funTXRX.o funTXRX.c    -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
 endif
 

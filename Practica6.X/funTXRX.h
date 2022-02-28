@@ -15,5 +15,6 @@
  */
 /* ************************************************************************** */
 
-void InicializarUART_RX(void);
+void InicializarUART_TX_RX(void);
 char getRX(void);
+void setTX(char *ps);
